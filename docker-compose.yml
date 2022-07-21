@@ -15,7 +15,7 @@ services:
       - 'traefik.http.routers.freehunter.rule=Host(`freehunter.iamon99.com`)'
       - 'traefik.http.routers.freehunter.entrypoints=websecure'
       - 'traefik.http.routers.freehunter.tls.certresolver=myresolver'
-      - 'traefik.http.services.freehunter.loadbalancer.server.port=9001'
+      - 'traefik.http.services.freehunter.loadbalancer.server.port=9002'
 
   frontend:
     build: frontend
