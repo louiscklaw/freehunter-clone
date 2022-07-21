@@ -14,6 +14,16 @@ services:
     # volumes:
     # - frontend:/src
     command: yarn start
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.freelancer-http.rule=Host(`freelancer.iamon99.com`)'
+      - 'traefik.http.routers.freelancer-http.entrypoints=web'
+      - 'traefik.http.routers.freelancer-http.middlewares=freelancer-https'
+      - 'traefik.http.middlewares.freelancer-https.redirectscheme.scheme=https'
+      - 'traefik.http.routers.freelancer.rule=Host(`freelancer.iamon99.com`)'
+      - 'traefik.http.routers.freelancer.entrypoints=websecure'
+      - 'traefik.http.routers.freelancer.tls.certresolver=myresolver'
+      - 'traefik.http.services.freelancer.loadbalancer.server.port=8000'
 
 volumes:
   data:
