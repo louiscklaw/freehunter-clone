@@ -1,63 +1,61 @@
-import { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Box, Button, Drawer, List, ListSubheader, Typography, useMediaQuery } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import AddIcon from '@mui/icons-material/Add';
-import { MailLabel } from './mail-label';
+import { Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { Box, Button, Drawer, List, ListSubheader, Typography, useMediaQuery } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import AddIcon from '@mui/icons-material/Add'
+import { MailLabel } from './mail-label'
 
 const MailSidebarDesktop = styled(Drawer)({
   flexShrink: 0,
   width: 280,
   '& .MuiDrawer-paper': {
     position: 'relative',
-    width: 280
-  }
-});
+    width: 280,
+  },
+})
 
 const MailSidebarMobile = styled(Drawer)({
   width: 280,
   '& .MuiDrawer-paper': {
     top: 64,
     height: 'calc(100% - 64px)',
-    width: 280
-  }
-});
+    width: 280,
+  },
+})
 
-const groupLabels = (labels) => {
+const groupLabels = labels => {
   const groups = {
     system: [],
-    custom: []
-  };
+    custom: [],
+  }
 
-  labels.forEach((label) => {
+  labels.forEach(label => {
     if (label.type === 'system') {
-      groups.system.push(label);
+      groups.system.push(label)
     } else {
-      groups.custom.push(label);
+      groups.custom.push(label)
     }
-  });
+  })
 
-  return groups;
-};
+  return groups
+}
 
-export const MailSidebar = (props) => {
-  const { containerRef, label: currentLabel, labels, open, onCompose, onClose, ...other } = props;
-  const mdUp = useMediaQuery((theme) => theme.breakpoints.up('md'));
+export const MailSidebar = props => {
+  const { containerRef, label: currentLabel, labels, open, onCompose, onClose, ...other } = props
+  const mdUp = useMediaQuery(theme => theme.breakpoints.up('md'))
 
   const handleLabelClick = () => {
     if (!mdUp) {
-      onClose?.();
+      onClose?.()
     }
-  };
+  }
 
-  const groupedLabels = groupLabels(labels);
+  const groupedLabels = groupLabels(labels)
 
   const content = (
     <div>
       <Box sx={{ p: 2 }}>
-        <Typography variant="h5">
-          Mailbox
-        </Typography>
+        <Typography variant="h5">Mailbox</Typography>
         <Button
           fullWidth
           onClick={onCompose}
@@ -71,25 +69,22 @@ export const MailSidebar = (props) => {
       <Box
         sx={{
           pb: 2,
-          px: 2
+          px: 2,
         }}
       >
-        {Object.keys(groupedLabels).map((type) => (
+        {Object.keys(groupedLabels).map(type => (
           <Fragment key={type}>
             {type === 'custom' && (
               <ListSubheader disableSticky={true}>
-                <Typography
-                  color="textSecondary"
-                  variant="overline"
-                >
+                <Typography color="textSecondary" variant="overline">
                   Labels
                 </Typography>
               </ListSubheader>
             )}
             <List disablePadding>
-              {groupedLabels[type].map((label) => (
+              {groupedLabels[type].map(label => (
                 <MailLabel
-                  active={(currentLabel === label.id) || (!currentLabel && label.id === 'inbox')}
+                  active={currentLabel === label.id || (!currentLabel && label.id === 'inbox')}
                   key={label.id}
                   label={label}
                   onClick={handleLabelClick}
@@ -100,7 +95,7 @@ export const MailSidebar = (props) => {
         ))}
       </Box>
     </div>
-  );
+  )
 
   if (mdUp) {
     return (
@@ -109,10 +104,11 @@ export const MailSidebar = (props) => {
         open={open}
         SlideProps={{ container: containerRef?.current }}
         variant="persistent"
-        {...other}>
+        {...other}
+      >
         {content}
       </MailSidebarDesktop>
-    );
+    )
   }
 
   return (
@@ -123,11 +119,12 @@ export const MailSidebar = (props) => {
       open={open}
       SlideProps={{ container: containerRef?.current }}
       variant="temporary"
-      {...other}>
+      {...other}
+    >
       {content}
     </MailSidebarMobile>
-  );
-};
+  )
+}
 
 MailSidebar.propTypes = {
   containerRef: PropTypes.any,
@@ -135,5 +132,5 @@ MailSidebar.propTypes = {
   labels: PropTypes.array.isRequired,
   onClose: PropTypes.func,
   onCompose: PropTypes.func,
-  open: PropTypes.bool
-};
+  open: PropTypes.bool,
+}

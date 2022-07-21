@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
-import { format, subDays, subHours } from 'date-fns';
+import { useEffect, useMemo, useState } from 'react'
+import PropTypes from 'prop-types'
+import { format, subDays, subHours } from 'date-fns'
 import {
   Avatar,
   Box,
@@ -12,15 +12,15 @@ import {
   ListItemText,
   Popover,
   Tooltip,
-  Typography
-} from '@mui/material';
-import { ChatAlt as ChatAltIcon } from '../../icons/chat-alt';
-import { MailOpen as MailOpenIcon } from '../../icons/mail-open';
-import { X as XIcon } from '../../icons/x';
-import { UserCircle as UserCircleIcon } from '../../icons/user-circle';
-import { Scrollbar } from '../scrollbar';
+  Typography,
+} from '@mui/material'
+import { ChatAlt as ChatAltIcon } from '../../icons/chat-alt'
+import { MailOpen as MailOpenIcon } from '../../icons/mail-open'
+import { X as XIcon } from '../../icons/x'
+import { UserCircle as UserCircleIcon } from '../../icons/user-circle'
+import { Scrollbar } from '../scrollbar'
 
-const now = new Date();
+const now = new Date()
 
 const data = [
   {
@@ -30,7 +30,7 @@ const data = [
     createdAt: subHours(now, 2).getTime(),
     job: 'Remote React / React Native Developer',
     read: true,
-    type: 'job_add'
+    type: 'job_add',
   },
   {
     id: 'bfb21a370c017acc416757c7',
@@ -39,14 +39,14 @@ const data = [
     createdAt: subHours(now, 2).getTime(),
     job: 'Senior Golang Backend Engineer',
     read: false,
-    type: 'job_add'
+    type: 'job_add',
   },
   {
     id: '20d9df4f23fff19668d7031c',
     createdAt: subDays(now, 1).getTime(),
     description: 'Logistics management is now available',
     read: true,
-    type: 'new_feature'
+    type: 'new_feature',
   },
   {
     id: '5e8883fca0e8612044248ecf',
@@ -55,11 +55,11 @@ const data = [
     company: 'Augmastic Inc',
     createdAt: subHours(now, 2).getTime(),
     read: false,
-    type: 'company_created'
-  }
-];
+    type: 'company_created',
+  },
+]
 
-const getNotificationContent = (notification) => {
+const getNotificationContent = notification => {
   switch (notification.type) {
     case 'job_add':
       return (
@@ -70,47 +70,34 @@ const getNotificationContent = (notification) => {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={(
+            primary={
               <Box
                 sx={{
                   alignItems: 'center',
                   display: 'flex',
-                  flexWrap: 'wrap'
+                  flexWrap: 'wrap',
                 }}
               >
-                <Typography
-                  sx={{ mr: 0.5 }}
-                  variant="subtitle2"
-                >
+                <Typography sx={{ mr: 0.5 }} variant="subtitle2">
                   {notification.author}
                 </Typography>
-                <Typography
-                  sx={{ mr: 0.5 }}
-                  variant="body2"
-                >
+                <Typography sx={{ mr: 0.5 }} variant="body2">
                   added a new job
                 </Typography>
-                <Link
-                  href="/dashboard/jobs"
-                  underline="always"
-                  variant="body2"
-                >
+                <Link href="/dashboard/jobs" underline="always" variant="body2">
                   {notification.job}
                 </Link>
               </Box>
-            )}
-            secondary={(
-              <Typography
-                color="textSecondary"
-                variant="caption"
-              >
+            }
+            secondary={
+              <Typography color="textSecondary" variant="caption">
                 {format(notification.createdAt, 'MMM dd, h:mm a')}
               </Typography>
-            )}
+            }
             sx={{ my: 0 }}
           />
         </>
-      );
+      )
     case 'new_feature':
       return (
         <>
@@ -120,37 +107,29 @@ const getNotificationContent = (notification) => {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={(
+            primary={
               <Box
                 sx={{
                   alignItems: 'center',
                   display: 'flex',
-                  flexWrap: 'wrap'
+                  flexWrap: 'wrap',
                 }}
               >
-                <Typography
-                  variant="subtitle2"
-                  sx={{ mr: 0.5 }}
-                >
+                <Typography variant="subtitle2" sx={{ mr: 0.5 }}>
                   New feature!
                 </Typography>
-                <Typography variant="body2">
-                  {notification.description}
-                </Typography>
+                <Typography variant="body2">{notification.description}</Typography>
               </Box>
-            )}
-            secondary={(
-              <Typography
-                color="textSecondary"
-                variant="caption"
-              >
+            }
+            secondary={
+              <Typography color="textSecondary" variant="caption">
                 {format(notification.createdAt, 'MMM dd, h:mm a')}
               </Typography>
-            )}
+            }
             sx={{ my: 0 }}
           />
         </>
-      );
+      )
     case 'company_created':
       return (
         <>
@@ -160,88 +139,80 @@ const getNotificationContent = (notification) => {
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={(
+            primary={
               <Box
                 sx={{
                   alignItems: 'center',
                   display: 'flex',
                   flexWrap: 'wrap',
-                  m: 0
+                  m: 0,
                 }}
               >
-                <Typography
-                  sx={{ mr: 0.5 }}
-                  variant="subtitle2"
-                >
+                <Typography sx={{ mr: 0.5 }} variant="subtitle2">
                   {notification.author}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ mr: 0.5 }}
-                >
+                <Typography variant="body2" sx={{ mr: 0.5 }}>
                   created
                 </Typography>
-                <Link
-                  href="/dashboard/jobs"
-                  underline="always"
-                  variant="body2"
-                >
+                <Link href="/dashboard/jobs" underline="always" variant="body2">
                   {notification.company}
                 </Link>
               </Box>
-            )}
-            secondary={(
-              <Typography
-                color="textSecondary"
-                variant="caption"
-              >
+            }
+            secondary={
+              <Typography color="textSecondary" variant="caption">
                 {format(notification.createdAt, 'MMM dd, h:mm a')}
               </Typography>
-            )}
+            }
             sx={{ my: 0 }}
           />
         </>
-      );
+      )
     default:
-      return null;
+      return null
   }
-};
+}
 
-export const NotificationsPopover = (props) => {
-  const { anchorEl, onClose, onUpdateUnread, open, ...other } = props;
-  const [notifications, setNotifications] = useState(data);
-  const unread = useMemo(() => notifications.reduce((acc, notification) => acc + (notification.read
-    ? 0
-    : 1), 0), [notifications]);
+export const NotificationsPopover = props => {
+  const { anchorEl, onClose, onUpdateUnread, open, ...other } = props
+  const [notifications, setNotifications] = useState(data)
+  const unread = useMemo(
+    () => notifications.reduce((acc, notification) => acc + (notification.read ? 0 : 1), 0),
+    [notifications],
+  )
 
   useEffect(() => {
-    onUpdateUnread?.(unread);
-  }, [onUpdateUnread, unread]);
+    onUpdateUnread?.(unread)
+  }, [onUpdateUnread, unread])
 
   const handleMarkAllAsRead = () => {
-    setNotifications((prevState) => prevState.map((notification) => ({
-      ...notification,
-      read: true
-    })));
-  };
+    setNotifications(prevState =>
+      prevState.map(notification => ({
+        ...notification,
+        read: true,
+      })),
+    )
+  }
 
-  const handleRemoveOne = (notificationId) => {
-    setNotifications((prevState) => prevState.filter((notification) => notification.id
-      !== notificationId));
-  };
+  const handleRemoveOne = notificationId => {
+    setNotifications(prevState =>
+      prevState.filter(notification => notification.id !== notificationId),
+    )
+  }
 
   return (
     <Popover
       anchorEl={anchorEl}
       anchorOrigin={{
         horizontal: 'left',
-        vertical: 'bottom'
+        vertical: 'bottom',
       }}
       onClose={onClose}
       open={!!open}
       PaperProps={{ sx: { width: 380 } }}
       transitionDuration={0}
-      {...other}>
+      {...other}
+    >
       <Box
         sx={{
           alignItems: 'center',
@@ -250,74 +221,63 @@ export const NotificationsPopover = (props) => {
           display: 'flex',
           justifyContent: 'space-between',
           px: 3,
-          py: 2
+          py: 2,
         }}
       >
-        <Typography
-          color="inherit"
-          variant="h6"
-        >
+        <Typography color="inherit" variant="h6">
           Notifications
         </Typography>
         <Tooltip title="Mark all as read">
-          <IconButton
-            onClick={handleMarkAllAsRead}
-            size="small"
-            sx={{ color: 'inherit' }}
-          >
+          <IconButton onClick={handleMarkAllAsRead} size="small" sx={{ color: 'inherit' }}>
             <MailOpenIcon fontSize="small" />
           </IconButton>
         </Tooltip>
       </Box>
-      {notifications.length === 0
-        ? (
-          <Box sx={{ p: 2 }}>
-            <Typography variant="subtitle2">
-              There are no notifications
-            </Typography>
-          </Box>
-        )
-        : (
-          <Scrollbar sx={{ maxHeight: 400 }}>
-            <List disablePadding>
-              {notifications.map((notification) => (
-                <ListItem
-                  divider
-                  key={notification.id}
-                  sx={{
-                    alignItems: 'flex-start',
-                    '&:hover': {
-                      backgroundColor: 'action.hover'
-                    },
-                    '& .MuiListItemSecondaryAction-root': {
-                      top: '24%'
-                    }
-                  }}
-                  secondaryAction={(
-                    <Tooltip title="Remove">
-                      <IconButton
-                        edge="end"
-                        onClick={() => handleRemoveOne(notification.id)}
-                        size="small"
-                      >
-                        <XIcon sx={{ fontSize: 14 }} />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-                >
-                  {getNotificationContent(notification)}
-                </ListItem>
-              ))}
-            </List>
-          </Scrollbar>
-        )}
+      {notifications.length === 0 ? (
+        <Box sx={{ p: 2 }}>
+          <Typography variant="subtitle2">There are no notifications</Typography>
+        </Box>
+      ) : (
+        <Scrollbar sx={{ maxHeight: 400 }}>
+          <List disablePadding>
+            {notifications.map(notification => (
+              <ListItem
+                divider
+                key={notification.id}
+                sx={{
+                  alignItems: 'flex-start',
+                  '&:hover': {
+                    backgroundColor: 'action.hover',
+                  },
+                  '& .MuiListItemSecondaryAction-root': {
+                    top: '24%',
+                  },
+                }}
+                secondaryAction={
+                  <Tooltip title="Remove">
+                    <IconButton
+                      edge="end"
+                      onClick={() => handleRemoveOne(notification.id)}
+                      size="small"
+                    >
+                      <XIcon sx={{ fontSize: 14 }} />
+                    </IconButton>
+                  </Tooltip>
+                }
+              >
+                {getNotificationContent(notification)}
+              </ListItem>
+            ))}
+          </List>
+        </Scrollbar>
+      )}
     </Popover>
-  );
-};
+  )
+}
 
 NotificationsPopover.propTypes = {
   anchorEl: PropTypes.any,
   onClose: PropTypes.func,
   onUpdateUnread: PropTypes.func,
-  open: PropTypes.bool
-};
+  open: PropTypes.bool,
+}

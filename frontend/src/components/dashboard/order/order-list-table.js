@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
-import { format } from 'date-fns';
-import numeral from 'numeral';
+import PropTypes from 'prop-types'
+import { format } from 'date-fns'
+import numeral from 'numeral'
 import {
   Box,
   Table,
@@ -8,18 +8,18 @@ import {
   TableCell,
   TablePagination,
   TableRow,
-  Typography
-} from '@mui/material';
-import { SeverityPill } from '../../severity-pill';
+  Typography,
+} from '@mui/material'
+import { SeverityPill } from '../../severity-pill'
 
 const severityMap = {
   complete: 'success',
   pending: 'info',
   canceled: 'warning',
-  rejected: 'error'
-};
+  rejected: 'error',
+}
 
-export const OrderListTable = (props) => {
+export const OrderListTable = props => {
   const {
     onOpenDrawer,
     onPageChange,
@@ -29,13 +29,13 @@ export const OrderListTable = (props) => {
     page,
     rowsPerPage,
     ...other
-  } = props;
+  } = props
 
   return (
     <div {...other}>
       <Table>
         <TableBody>
-          {orders.map((order) => (
+          {orders.map(order => (
             <TableRow
               hover
               key={order.id}
@@ -45,44 +45,30 @@ export const OrderListTable = (props) => {
               <TableCell
                 sx={{
                   alignItems: 'center',
-                  display: 'flex'
+                  display: 'flex',
                 }}
               >
                 <Box
                   sx={{
-                    backgroundColor: (theme) => theme.palette.mode === 'dark'
-                      ? 'neutral.800'
-                      : 'neutral.200',
+                    backgroundColor: theme =>
+                      theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.200',
                     borderRadius: 2,
                     maxWidth: 'fit-content',
                     ml: 3,
-                    p: 1
+                    p: 1,
                   }}
                 >
-                  <Typography
-                    align="center"
-                    variant="subtitle2"
-                  >
+                  <Typography align="center" variant="subtitle2">
                     {format(order.createdAt, 'LLL').toUpperCase()}
                   </Typography>
-                  <Typography
-                    align="center"
-                    variant="h6"
-                  >
+                  <Typography align="center" variant="h6">
                     {format(order.createdAt, 'd')}
                   </Typography>
                 </Box>
                 <Box sx={{ ml: 2 }}>
-                  <Typography variant="subtitle2">
-                    {order.number}
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    variant="body2"
-                  >
-                    Total of
-                    {' '}
-                    {numeral(order.totalAmount).format(`${order.currency}0,0.00`)}
+                  <Typography variant="subtitle2">{order.number}</Typography>
+                  <Typography color="textSecondary" variant="body2">
+                    Total of {numeral(order.totalAmount).format(`${order.currency}0,0.00`)}
                   </Typography>
                 </Box>
               </TableCell>
@@ -105,8 +91,8 @@ export const OrderListTable = (props) => {
         rowsPerPageOptions={[5, 10, 25]}
       />
     </div>
-  );
-};
+  )
+}
 
 OrderListTable.propTypes = {
   onOpenDrawer: PropTypes.func,
@@ -115,5 +101,5 @@ OrderListTable.propTypes = {
   orders: PropTypes.array.isRequired,
   ordersCount: PropTypes.number.isRequired,
   page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired
-};
+  rowsPerPage: PropTypes.number.isRequired,
+}

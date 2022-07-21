@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState } from 'react'
 import {
   Box,
   Button,
@@ -8,72 +8,54 @@ import {
   MenuItem,
   MenuList,
   Paper,
-  Popper
-} from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+  Popper,
+} from '@mui/material'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 
-const options = [
-  'Create a merge commit',
-  'Squash and merge',
-  'Rebase and merge'
-];
+const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge']
 
 export const Buttons3 = () => {
-  const anchorRef = useRef(null);
-  const [open, setOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const anchorRef = useRef(null)
+  const [open, setOpen] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(1)
 
-  const handleMenuItemClick = (index) => {
-    setSelectedIndex(index);
-    setOpen(false);
-  };
+  const handleMenuItemClick = index => {
+    setSelectedIndex(index)
+    setOpen(false)
+  }
 
   const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
+    setOpen(prevOpen => !prevOpen)
+  }
 
-  const handleClose = (event) => {
+  const handleClose = event => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
+      return
     }
 
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <Box
       sx={{
         backgroundColor: 'background.paper',
-        p: 3
+        p: 3,
       }}
     >
-      <ButtonGroup
-        ref={anchorRef}
-        variant="contained"
-      >
-        <Button>
-          {options[selectedIndex]}
-        </Button>
-        <Button
-          onClick={handleToggle}
-          size="small"
-          sx={{ backgroundColor: 'primary.dark' }}
-        >
+      <ButtonGroup ref={anchorRef} variant="contained">
+        <Button>{options[selectedIndex]}</Button>
+        <Button onClick={handleToggle} size="small" sx={{ backgroundColor: 'primary.dark' }}>
           <ArrowDropDownIcon fontSize="small" />
         </Button>
       </ButtonGroup>
-      <Popper
-        anchorEl={anchorRef.current}
-        open={open}
-        transition
-      >
+      <Popper anchorEl={anchorRef.current} open={open} transition>
         {({ TransitionProps, placement }) => (
-          <Grow {...TransitionProps}
-                style={{
-                  transformOrigin: placement === 'bottom'
-                    ? 'center top'
-                    : 'center bottom'
-                }}
+          <Grow
+            {...TransitionProps}
+            style={{
+              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+            }}
           >
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
@@ -95,5 +77,5 @@ export const Buttons3 = () => {
         )}
       </Popper>
     </Box>
-  );
-};
+  )
+}

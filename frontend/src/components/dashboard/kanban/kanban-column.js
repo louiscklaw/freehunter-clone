@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import toast from 'react-hot-toast';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { useRef, useState } from 'react'
+import PropTypes from 'prop-types'
+import toast from 'react-hot-toast'
+import { Draggable, Droppable } from 'react-beautiful-dnd'
 import {
   Box,
   Chip,
@@ -11,92 +11,92 @@ import {
   Input,
   Menu,
   MenuItem,
-  OutlinedInput
-} from '@mui/material';
-import { DotsHorizontal as DotsHorizontalIcon } from '../../../icons/dots-horizontal';
-import { clearColumn, deleteColumn, updateColumn } from '../../../slices/kanban';
-import { useDispatch, useSelector } from '../../../store';
-import { KanbanCard } from './kanban-card';
-import { KanbanCardAdd } from './kanban-card-add';
+  OutlinedInput,
+} from '@mui/material'
+import { DotsHorizontal as DotsHorizontalIcon } from '../../../icons/dots-horizontal'
+import { clearColumn, deleteColumn, updateColumn } from '../../../slices/kanban'
+import { useDispatch, useSelector } from '../../../store'
+import { KanbanCard } from './kanban-card'
+import { KanbanCardAdd } from './kanban-card-add'
 
 const columnSelector = (state, columnId) => {
-  const { columns } = state.kanban;
+  const { columns } = state.kanban
 
-  return columns.byId[columnId];
-};
+  return columns.byId[columnId]
+}
 
-export const KanbanColumn = (props) => {
-  const { columnId, ...other } = props;
-  const dispatch = useDispatch();
-  const moreRef = useRef(null);
-  const column = useSelector((state) => columnSelector(state, columnId));
-  const [openMenu, setOpenMenu] = useState(false);
-  const [name, setName] = useState(column.name);
-  const [isRenaming, setIsRenaming] = useState(false);
+export const KanbanColumn = props => {
+  const { columnId, ...other } = props
+  const dispatch = useDispatch()
+  const moreRef = useRef(null)
+  const column = useSelector(state => columnSelector(state, columnId))
+  const [openMenu, setOpenMenu] = useState(false)
+  const [name, setName] = useState(column.name)
+  const [isRenaming, setIsRenaming] = useState(false)
 
   const handleMenuOpen = () => {
-    setOpenMenu(true);
-  };
+    setOpenMenu(true)
+  }
 
   const handleMenuClose = () => {
-    setOpenMenu(false);
-  };
+    setOpenMenu(false)
+  }
 
-  const handleChange = (event) => {
-    setName(event.target.value);
-  };
+  const handleChange = event => {
+    setName(event.target.value)
+  }
 
   const handleRenameInit = () => {
-    setIsRenaming(true);
-  };
+    setIsRenaming(true)
+  }
 
   const handleRename = async () => {
     try {
       // If name is empty use the initial column name
       if (!name) {
-        setName(column.name);
-        setIsRenaming(false);
-        return;
+        setName(column.name)
+        setIsRenaming(false)
+        return
       }
 
       // If name is equal to column name, it means there are no changes
       if (name === column.name) {
-        setIsRenaming(false);
-        return;
+        setIsRenaming(false)
+        return
       }
 
-      const update = { name };
+      const update = { name }
 
-      await dispatch(updateColumn(column.id, update));
-      setIsRenaming(false);
-      toast.success('Column updated!');
+      await dispatch(updateColumn(column.id, update))
+      setIsRenaming(false)
+      toast.success('Column updated!')
     } catch (err) {
-      console.error(err);
-      toast.error('Something went wrong!');
+      console.error(err)
+      toast.error('Something went wrong!')
     }
-  };
+  }
 
   const handleDelete = async () => {
     try {
-      setOpenMenu(false);
-      await dispatch(deleteColumn(column.id));
-      toast.success('Column deleted!');
+      setOpenMenu(false)
+      await dispatch(deleteColumn(column.id))
+      toast.success('Column deleted!')
     } catch (err) {
-      console.error(err);
-      toast.error('Something went wrong!');
+      console.error(err)
+      toast.error('Something went wrong!')
     }
-  };
+  }
 
   const handleClear = async () => {
     try {
-      setOpenMenu(false);
-      await dispatch(clearColumn(column.id));
-      toast.success('Column cleared!');
+      setOpenMenu(false)
+      await dispatch(clearColumn(column.id))
+      toast.success('Column cleared!')
     } catch (err) {
-      console.error(err);
-      toast.error('Something went wrong!');
+      console.error(err)
+      toast.error('Something went wrong!')
     }
-  };
+  }
 
   return (
     <div {...other}>
@@ -110,8 +110,8 @@ export const KanbanColumn = (props) => {
           overflowY: 'hidden',
           width: {
             xs: 300,
-            sm: 380
-          }
+            sm: 380,
+          },
         }}
       >
         <Box
@@ -120,85 +120,71 @@ export const KanbanColumn = (props) => {
             display: 'flex',
             justifyContent: 'space-between',
             pr: 2,
-            py: 1
+            py: 1,
           }}
         >
-          {isRenaming
-            ? (
-              <ClickAwayListener onClickAway={handleRename}>
-                <OutlinedInput
-                  autoFocus
-                  fullWidth
-                  onBlur={handleRename}
-                  onChange={handleChange}
-                  value={name}
-                  sx={{
-                    backgroundColor: 'background.paper',
-                    '& .MuiInputBase-input': {
-                      px: 2,
-                      py: 1
-                    }
-                  }}
-                />
-              </ClickAwayListener>
-            )
-            : (
-              <Input
-                disableUnderline
+          {isRenaming ? (
+            <ClickAwayListener onClickAway={handleRename}>
+              <OutlinedInput
+                autoFocus
                 fullWidth
-                onClick={handleRenameInit}
-                value={column.name}
+                onBlur={handleRename}
+                onChange={handleChange}
+                value={name}
                 sx={{
-                  borderColor: 'transparent',
-                  borderRadius: 1,
-                  borderStyle: 'solid',
-                  borderWidth: 1,
-                  cursor: 'text',
-                  m: '-1px',
-                  '&:hover': {
-                    backgroundColor: 'action.selected'
-                  },
+                  backgroundColor: 'background.paper',
                   '& .MuiInputBase-input': {
-                    fontWeight: 500,
                     px: 2,
-                    py: 1
-                  }
+                    py: 1,
+                  },
                 }}
               />
-            )}
+            </ClickAwayListener>
+          ) : (
+            <Input
+              disableUnderline
+              fullWidth
+              onClick={handleRenameInit}
+              value={column.name}
+              sx={{
+                borderColor: 'transparent',
+                borderRadius: 1,
+                borderStyle: 'solid',
+                borderWidth: 1,
+                cursor: 'text',
+                m: '-1px',
+                '&:hover': {
+                  backgroundColor: 'action.selected',
+                },
+                '& .MuiInputBase-input': {
+                  fontWeight: 500,
+                  px: 2,
+                  py: 1,
+                },
+              }}
+            />
+          )}
           <Box
             sx={{
               alignItems: 'center',
-              display: 'flex'
+              display: 'flex',
             }}
           >
-            <Chip
-              sx={{ ml: 2 }}
-              label={column.cardIds.length}
-            />
-            <IconButton
-              sx={{ ml: 2 }}
-              edge="end"
-              onClick={handleMenuOpen}
-              ref={moreRef}
-            >
+            <Chip sx={{ ml: 2 }} label={column.cardIds.length} />
+            <IconButton sx={{ ml: 2 }} edge="end" onClick={handleMenuOpen} ref={moreRef}>
               <DotsHorizontalIcon fontSize="small" />
             </IconButton>
           </Box>
         </Box>
         <Box
           sx={{
-            backgroundColor: (theme) => theme.palette.mode === 'dark'
-              ? 'neutral.800'
-              : 'neutral.200',
-            borderRadius: 1
+            backgroundColor: theme =>
+              theme.palette.mode === 'dark' ? 'neutral.800' : 'neutral.200',
+            borderRadius: 1,
           }}
         >
-          <Droppable
-            droppableId={column.id}
-            type="card"
-          >
-            {(provided) => (
+          <Droppable droppableId={column.id} type="card">
+            {provided => (
               <Box
                 ref={provided.innerRef}
                 sx={{
@@ -206,15 +192,11 @@ export const KanbanColumn = (props) => {
                   minHeight: 80,
                   overflowY: 'auto',
                   px: 2,
-                  py: 1
+                  py: 1,
                 }}
               >
                 {column.cardIds.map((cardId, index) => (
-                  <Draggable
-                    draggableId={cardId}
-                    index={index}
-                    key={cardId}
-                  >
+                  <Draggable draggableId={cardId} index={index} key={cardId}>
                     {(_provided, snapshot) => (
                       <KanbanCard
                         cardId={cardId}
@@ -225,7 +207,8 @@ export const KanbanColumn = (props) => {
                         ref={_provided.innerRef}
                         style={{ ..._provided.draggableProps.style }}
                         {..._provided.draggableProps}
-                        {..._provided.dragHandleProps} />
+                        {..._provided.dragHandleProps}
+                      />
                     )}
                   </Draggable>
                 ))}
@@ -235,9 +218,7 @@ export const KanbanColumn = (props) => {
           </Droppable>
           <Divider
             sx={{
-              borderColor: (theme) => theme.palette.mode === 'dark'
-                ? 'neutral.700'
-                : 'neutral.300'
+              borderColor: theme => (theme.palette.mode === 'dark' ? 'neutral.700' : 'neutral.300'),
             }}
           />
           <Box sx={{ p: 2 }}>
@@ -248,24 +229,20 @@ export const KanbanColumn = (props) => {
           anchorEl={moreRef.current}
           anchorOrigin={{
             horizontal: 'center',
-            vertical: 'bottom'
+            vertical: 'bottom',
           }}
           keepMounted
           onClose={handleMenuClose}
           open={openMenu}
         >
-          <MenuItem onClick={handleClear}>
-            Clear
-          </MenuItem>
-          <MenuItem onClick={handleDelete}>
-            Delete
-          </MenuItem>
+          <MenuItem onClick={handleClear}>Clear</MenuItem>
+          <MenuItem onClick={handleDelete}>Delete</MenuItem>
         </Menu>
       </Box>
     </div>
-  );
-};
+  )
+}
 
 KanbanColumn.propTypes = {
-  columnId: PropTypes.string.isRequired
-};
+  columnId: PropTypes.string.isRequired,
+}

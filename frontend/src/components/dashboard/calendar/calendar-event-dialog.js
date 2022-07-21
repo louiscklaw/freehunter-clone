@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import toast from 'react-hot-toast';
-import { addMinutes } from 'date-fns';
-import * as Yup from 'yup';
-import { useFormik } from 'formik';
+import PropTypes from 'prop-types'
+import toast from 'react-hot-toast'
+import { addMinutes } from 'date-fns'
+import * as Yup from 'yup'
+import { useFormik } from 'formik'
 import {
   Box,
   Button,
@@ -13,17 +13,17 @@ import {
   IconButton,
   Switch,
   TextField,
-  Typography
-} from '@mui/material';
-import { DateTimePicker } from '@mui/lab';
-import { Trash as TrashIcon } from '../../../icons/trash';
-import { createEvent, deleteEvent, updateEvent } from '../../../slices/calendar';
-import { useDispatch } from '../../../store';
-import { useMemo } from 'react';
+  Typography,
+} from '@mui/material'
+import { DateTimePicker } from '@mui/lab'
+import { Trash as TrashIcon } from '../../../icons/trash'
+import { createEvent, deleteEvent, updateEvent } from '../../../slices/calendar'
+import { useDispatch } from '../../../store'
+import { useMemo } from 'react'
 
-export const CalendarEventDialog = (props) => {
-  const { event, onAddComplete, onClose, onDeleteComplete, onEditComplete, open, range } = props;
-  const dispatch = useDispatch();
+export const CalendarEventDialog = props => {
+  const { event, onAddComplete, onClose, onDeleteComplete, onEditComplete, open, range } = props
+  const dispatch = useDispatch()
   const initialValues = useMemo(() => {
     if (event) {
       return {
@@ -33,8 +33,8 @@ export const CalendarEventDialog = (props) => {
         end: event.end ? new Date(event.end) : addMinutes(new Date(), 30),
         start: event.start ? new Date(event.start) : new Date(),
         title: event.title || '',
-        submit: null
-      };
+        submit: null,
+      }
     }
 
     if (range) {
@@ -45,8 +45,8 @@ export const CalendarEventDialog = (props) => {
         end: new Date(range.end),
         start: new Date(range.start),
         title: '',
-        submit: null
-      };
+        submit: null,
+      }
     }
 
     return {
@@ -56,9 +56,9 @@ export const CalendarEventDialog = (props) => {
       end: addMinutes(new Date(), 30),
       start: new Date(),
       title: '',
-      submit: null
-    };
-  }, [event, range]);
+      submit: null,
+    }
+  }, [event, range])
   const formik = useFormik({
     enableReinitialize: true,
     initialValues,
@@ -67,10 +67,7 @@ export const CalendarEventDialog = (props) => {
       description: Yup.string().max(5000),
       end: Yup.date(),
       start: Yup.date(),
-      title: Yup
-        .string()
-        .max(255)
-        .required('Title is required')
+      title: Yup.string().max(255).required('Title is required'),
     }),
     onSubmit: async (values, helpers) => {
       try {
@@ -79,82 +76,71 @@ export const CalendarEventDialog = (props) => {
           description: values.description,
           end: values.end.getTime(),
           start: values.start.getTime(),
-          title: values.title
-        };
+          title: values.title,
+        }
 
         if (event) {
-          await dispatch(updateEvent(event.id, data));
-          toast.success('Event updated!');
+          await dispatch(updateEvent(event.id, data))
+          toast.success('Event updated!')
         } else {
-          await dispatch(createEvent(data));
-          toast.success('Event added!');
+          await dispatch(createEvent(data))
+          toast.success('Event added!')
         }
 
         if (!event && onAddComplete) {
-          onAddComplete();
+          onAddComplete()
         }
 
         if (event && onEditComplete) {
-          onEditComplete();
+          onEditComplete()
         }
       } catch (err) {
-        console.error(err);
-        toast.error('Something went wrong!');
-        helpers.setStatus({ success: false });
-        helpers.setErrors({ submit: err.message });
-        helpers.setSubmitting(false);
+        console.error(err)
+        toast.error('Something went wrong!')
+        helpers.setStatus({ success: false })
+        helpers.setErrors({ submit: err.message })
+        helpers.setSubmitting(false)
       }
-    }
-  });
+    },
+  })
 
-  const handleStartDateChange = (date) => {
-    formik.setFieldValue('start', date);
+  const handleStartDateChange = date => {
+    formik.setFieldValue('start', date)
 
     // Prevent end date to be before start date
     if (formik.values.end && date && date > formik.values.end) {
-      formik.setFieldValue('end', date);
+      formik.setFieldValue('end', date)
     }
-  };
+  }
 
-  const handleEndDateChange = (date) => {
-    formik.setFieldValue('end', date);
+  const handleEndDateChange = date => {
+    formik.setFieldValue('end', date)
 
     // Prevent start date to be after end date
     if (formik.values.start && date && date < formik.values.start) {
-      formik.setFieldValue('start', date);
+      formik.setFieldValue('start', date)
     }
-  };
+  }
 
   const handleDelete = async () => {
     try {
       if (!event) {
-        return;
+        return
       }
 
-      await dispatch(deleteEvent(event.id));
-      onDeleteComplete?.();
+      await dispatch(deleteEvent(event.id))
+      onDeleteComplete?.()
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-  };
+  }
 
   return (
-    <Dialog
-      fullWidth
-      maxWidth="sm"
-      onClose={onClose}
-      open={!!open}
-    >
+    <Dialog fullWidth maxWidth="sm" onClose={onClose} open={!!open}>
       <form onSubmit={formik.handleSubmit}>
         <Box sx={{ p: 3 }}>
-          <Typography
-            align="center"
-            gutterBottom
-            variant="h5"
-          >
-            {event
-              ? 'Edit Event'
-              : 'Add Event'}
+          <Typography align="center" gutterBottom variant="h5">
+            {event ? 'Edit Event' : 'Add Event'}
           </Typography>
         </Box>
         <Box sx={{ p: 3 }}>
@@ -182,13 +168,13 @@ export const CalendarEventDialog = (props) => {
           </Box>
           <Box sx={{ mt: 2 }}>
             <FormControlLabel
-              control={(
+              control={
                 <Switch
                   checked={formik.values.allDay}
                   name="allDay"
                   onChange={formik.handleChange}
                 />
-              )}
+              }
               label="All day"
             />
           </Box>
@@ -196,11 +182,7 @@ export const CalendarEventDialog = (props) => {
             <DateTimePicker
               label="Start date"
               onChange={handleStartDateChange}
-              renderInput={(inputProps) => (
-                <TextField
-                  fullWidth
-                  {...inputProps} />
-              )}
+              renderInput={inputProps => <TextField fullWidth {...inputProps} />}
               value={formik.values.start}
             />
           </Box>
@@ -208,19 +190,13 @@ export const CalendarEventDialog = (props) => {
             <DateTimePicker
               label="End date"
               onChange={handleEndDateChange}
-              renderInput={(inputProps) => (
-                <TextField
-                  fullWidth
-                  {...inputProps} />
-              )}
+              renderInput={inputProps => <TextField fullWidth {...inputProps} />}
               value={formik.values.end}
             />
           </Box>
           {Boolean(formik.touched.end && formik.errors.end) && (
             <Box sx={{ mt: 2 }}>
-              <FormHelperText error>
-                {formik.errors.end}
-              </FormHelperText>
+              <FormHelperText error>{formik.errors.end}</FormHelperText>
             </Box>
           )}
         </Box>
@@ -229,7 +205,7 @@ export const CalendarEventDialog = (props) => {
           sx={{
             alignItems: 'center',
             display: 'flex',
-            p: 2
+            p: 2,
           }}
         >
           {event && (
@@ -238,22 +214,15 @@ export const CalendarEventDialog = (props) => {
             </IconButton>
           )}
           <Box sx={{ flexGrow: 1 }} />
-          <Button onClick={onClose}>
-            Cancel
-          </Button>
-          <Button
-            disabled={formik.isSubmitting}
-            sx={{ ml: 1 }}
-            type="submit"
-            variant="contained"
-          >
+          <Button onClick={onClose}>Cancel</Button>
+          <Button disabled={formik.isSubmitting} sx={{ ml: 1 }} type="submit" variant="contained">
             Confirm
           </Button>
         </Box>
       </form>
     </Dialog>
-  );
-};
+  )
+}
 
 CalendarEventDialog.propTypes = {
   event: PropTypes.object,
@@ -262,5 +231,5 @@ CalendarEventDialog.propTypes = {
   onDeleteComplete: PropTypes.func,
   onEditComplete: PropTypes.func,
   open: PropTypes.bool,
-  range: PropTypes.object
-};
+  range: PropTypes.object,
+}

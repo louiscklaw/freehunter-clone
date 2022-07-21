@@ -1,82 +1,74 @@
-import { useCallback, useEffect, useState } from 'react';
-import NextLink from 'next/link';
-import Head from 'next/head';
-import { Avatar, Box, Chip, Container, Link, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { customerApi } from '../../../../__fake-api__/customer-api';
-import { AuthGuard } from '../../../../components/authentication/auth-guard';
-import { DashboardLayout } from '../../../../components/dashboard/dashboard-layout';
-import { CustomerEditForm } from '../../../../components/dashboard/customer/customer-edit-form';
-import { useMounted } from '../../../../hooks/use-mounted';
-import { gtm } from '../../../../lib/gtm';
-import { getInitials } from '../../../../utils/get-initials';
+import { useCallback, useEffect, useState } from 'react'
+import NextLink from 'next/link'
+import Head from 'next/head'
+import { Avatar, Box, Chip, Container, Link, Typography } from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { customerApi } from '../../../../__fake-api__/customer-api'
+import { AuthGuard } from '../../../../components/authentication/auth-guard'
+import { DashboardLayout } from '../../../../components/dashboard/dashboard-layout'
+import { CustomerEditForm } from '../../../../components/dashboard/customer/customer-edit-form'
+import { useMounted } from '../../../../hooks/use-mounted'
+import { gtm } from '../../../../lib/gtm'
+import { getInitials } from '../../../../utils/get-initials'
 
 const CustomerEdit = () => {
-  const isMounted = useMounted();
-  const [customer, setCustomer] = useState(null);
+  const isMounted = useMounted()
+  const [customer, setCustomer] = useState(null)
 
   useEffect(() => {
-    gtm.push({ event: 'page_view' });
-  }, []);
+    gtm.push({ event: 'page_view' })
+  }, [])
 
   const getCustomer = useCallback(async () => {
     try {
-      const data = await customerApi.getCustomer();
+      const data = await customerApi.getCustomer()
 
       if (isMounted()) {
-        setCustomer(data);
+        setCustomer(data)
       }
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-  }, [isMounted]);
+  }, [isMounted])
 
-  useEffect(() => {
-      getCustomer();
+  useEffect(
+    () => {
+      getCustomer()
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []);
+    [],
+  )
 
   if (!customer) {
-    return null;
+    return null
   }
 
   return (
     <>
       <Head>
-        <title>
-          Dashboard: Customer Edit | Material Kit Pro
-        </title>
+        <title>Dashboard: Customer Edit | Material Kit Pro</title>
       </Head>
       <Box
         component="main"
         sx={{
           backgroundColor: 'background.default',
           flexGrow: 1,
-          py: 8
+          py: 8,
         }}
       >
         <Container maxWidth="md">
           <Box sx={{ mb: 4 }}>
-            <NextLink
-              href="/dashboard/customers"
-              passHref
-            >
+            <NextLink href="/dashboard/customers" passHref>
               <Link
                 color="textPrimary"
                 component="a"
                 sx={{
                   alignItems: 'center',
-                  display: 'flex'
+                  display: 'flex',
                 }}
               >
-                <ArrowBackIcon
-                  fontSize="small"
-                  sx={{ mr: 1 }}
-                />
-                <Typography variant="subtitle2">
-                  Customers
-                </Typography>
+                <ArrowBackIcon fontSize="small" sx={{ mr: 1 }} />
+                <Typography variant="subtitle2">Customers</Typography>
               </Link>
             </NextLink>
           </Box>
@@ -84,7 +76,7 @@ const CustomerEdit = () => {
             sx={{
               alignItems: 'center',
               display: 'flex',
-              overflow: 'hidden'
+              overflow: 'hidden',
             }}
           >
             <Avatar
@@ -92,16 +84,13 @@ const CustomerEdit = () => {
               sx={{
                 height: 64,
                 mr: 2,
-                width: 64
+                width: 64,
               }}
             >
               {getInitials(customer.name)}
             </Avatar>
             <div>
-              <Typography
-                noWrap
-                variant="h4"
-              >
+              <Typography noWrap variant="h4">
                 {customer.email}
               </Typography>
               <Box
@@ -110,17 +99,11 @@ const CustomerEdit = () => {
                   display: 'flex',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap'
+                  whiteSpace: 'nowrap',
                 }}
               >
-                <Typography variant="subtitle2">
-                  user_id:
-                </Typography>
-                <Chip
-                  label={customer.id}
-                  size="small"
-                  sx={{ ml: 1 }}
-                />
+                <Typography variant="subtitle2">user_id:</Typography>
+                <Chip label={customer.id} size="small" sx={{ ml: 1 }} />
               </Box>
             </div>
           </Box>
@@ -130,15 +113,13 @@ const CustomerEdit = () => {
         </Container>
       </Box>
     </>
-  );
-};
+  )
+}
 
-CustomerEdit.getLayout = (page) => (
+CustomerEdit.getLayout = page => (
   <AuthGuard>
-    <DashboardLayout>
-      {page}
-    </DashboardLayout>
+    <DashboardLayout>{page}</DashboardLayout>
   </AuthGuard>
-);
+)
 
-export default CustomerEdit;
+export default CustomerEdit

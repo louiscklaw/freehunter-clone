@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import {
   Box,
   Checkbox,
@@ -7,66 +7,53 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Typography
-} from '@mui/material';
+  Typography,
+} from '@mui/material'
 
 const paymentMethods = [
   {
     label: 'Visa Credit/Debit Card',
-    value: 'visa'
+    value: 'visa',
   },
   {
     label: 'PayPal',
-    value: 'paypal'
-  }
-];
+    value: 'paypal',
+  },
+]
 
-export const CheckoutBilling = (props) => {
-  const { billing, onChange, ...other } = props;
+export const CheckoutBilling = props => {
+  const { billing, onChange, ...other } = props
 
   return (
     <div {...other}>
       <Box
         sx={{
           alignItems: 'center',
-          display: 'flex'
+          display: 'flex',
         }}
       >
         <Box
           sx={{
             alignItems: 'center',
-            border: (theme) => `1px solid ${theme.palette.divider}`,
+            border: theme => `1px solid ${theme.palette.divider}`,
             borderRadius: 20,
             display: 'flex',
             height: 40,
             justifyContent: 'center',
-            width: 40
+            width: 40,
           }}
         >
-          <Typography
-            sx={{ fontWeight: 'fontWeightBold' }}
-            variant="h6"
-          >
+          <Typography sx={{ fontWeight: 'fontWeightBold' }} variant="h6">
             1
           </Typography>
         </Box>
-        <Typography
-          sx={{ ml: 2 }}
-          variant="h6"
-        >
+        <Typography sx={{ ml: 2 }} variant="h6">
           Billing Address
         </Typography>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            sm={6}
-            xs={12}
-          >
+        <Grid container spacing={3}>
+          <Grid item sm={6} xs={12}>
             <TextField
               fullWidth
               label="First Name"
@@ -75,11 +62,7 @@ export const CheckoutBilling = (props) => {
               value={billing.firstName}
             />
           </Grid>
-          <Grid
-            item
-            sm={6}
-            xs={12}
-          >
+          <Grid item sm={6} xs={12}>
             <TextField
               fullWidth
               label="Last Name"
@@ -88,11 +71,7 @@ export const CheckoutBilling = (props) => {
               value={billing.lastName}
             />
           </Grid>
-          <Grid
-            item
-            sm={6}
-            xs={12}
-          >
+          <Grid item sm={6} xs={12}>
             <TextField
               fullWidth
               label="Street Address"
@@ -101,11 +80,7 @@ export const CheckoutBilling = (props) => {
               value={billing.address}
             />
           </Grid>
-          <Grid
-            item
-            sm={6}
-            xs={12}
-          >
+          <Grid item sm={6} xs={12}>
             <TextField
               fullWidth
               label="Street Line 2 (optional)"
@@ -114,11 +89,7 @@ export const CheckoutBilling = (props) => {
               value={billing.optionalAddress}
             />
           </Grid>
-          <Grid
-            item
-            sm={3}
-            xs={12}
-          >
+          <Grid item sm={3} xs={12}>
             <TextField
               fullWidth
               label="State"
@@ -127,18 +98,8 @@ export const CheckoutBilling = (props) => {
               value={billing.state}
             />
           </Grid>
-          <Grid
-            item
-            sm={3}
-            xs={12}
-          >
-            <TextField
-              fullWidth
-              label="Zip"
-              name="zip"
-              onChange={onChange}
-              value={billing.zip}
-            />
+          <Grid item sm={3} xs={12}>
+            <TextField fullWidth label="Zip" name="zip" onChange={onChange} value={billing.zip} />
           </Grid>
         </Grid>
       </Box>
@@ -146,74 +107,59 @@ export const CheckoutBilling = (props) => {
         sx={{
           alignItems: 'center',
           display: 'flex',
-          mt: 6
+          mt: 6,
         }}
       >
         <Box
           sx={{
             alignItems: 'center',
-            border: (theme) => `1px solid ${theme.palette.divider}`,
+            border: theme => `1px solid ${theme.palette.divider}`,
             borderRadius: 20,
             display: 'flex',
             height: 40,
             justifyContent: 'center',
-            width: 40
+            width: 40,
           }}
         >
-          <Typography
-            sx={{ fontWeight: 'fontWeightBold' }}
-            variant="h6"
-          >
+          <Typography sx={{ fontWeight: 'fontWeightBold' }} variant="h6">
             2
           </Typography>
         </Box>
-        <Typography
-          sx={{ ml: 2 }}
-          variant="h6"
-        >
+        <Typography sx={{ ml: 2 }} variant="h6">
           Shipping Address
         </Typography>
       </Box>
       <Box
         sx={{
           color: 'text.primary',
-          mt: 3
+          mt: 3,
         }}
       >
-        <FormControlLabel
-          control={<Checkbox defaultChecked />}
-          label="Same as billing address"
-        />
+        <FormControlLabel control={<Checkbox defaultChecked />} label="Same as billing address" />
       </Box>
       <Box
         sx={{
           alignItems: 'center',
           display: 'flex',
-          mt: 6
+          mt: 6,
         }}
       >
         <Box
           sx={{
             alignItems: 'center',
-            border: (theme) => `1px solid ${theme.palette.divider}`,
+            border: theme => `1px solid ${theme.palette.divider}`,
             borderRadius: 20,
             display: 'flex',
             height: 40,
             justifyContent: 'center',
-            width: 40
+            width: 40,
           }}
         >
-          <Typography
-            sx={{ fontWeight: 'fontWeightBold' }}
-            variant="h6"
-          >
+          <Typography sx={{ fontWeight: 'fontWeightBold' }} variant="h6">
             3
           </Typography>
         </Box>
-        <Typography
-          sx={{ ml: 2 }}
-          variant="h6"
-        >
+        <Typography sx={{ ml: 2 }} variant="h6">
           Payment Method
         </Typography>
       </Box>
@@ -224,30 +170,19 @@ export const CheckoutBilling = (props) => {
           sx={{ flexDirection: 'row' }}
           value={billing.paymentMethod}
         >
-          {paymentMethods.map((paymentMethod) => (
+          {paymentMethods.map(paymentMethod => (
             <FormControlLabel
               control={<Radio />}
               key={paymentMethod.value}
-              label={(
-                <Typography variant="body1">
-                  {paymentMethod.label}
-                </Typography>
-              )}
+              label={<Typography variant="body1">{paymentMethod.label}</Typography>}
               value={paymentMethod.value}
             />
           ))}
         </RadioGroup>
       </Box>
       <Box sx={{ mt: 3 }}>
-        <Grid
-          container
-          spacing={3}
-        >
-          <Grid
-            item
-            sm={6}
-            xs={12}
-          >
+        <Grid container spacing={3}>
+          <Grid item sm={6} xs={12}>
             <TextField
               fullWidth
               label="Name on Card"
@@ -256,15 +191,8 @@ export const CheckoutBilling = (props) => {
               value={billing.cardOwner}
             />
           </Grid>
-          <Grid
-            item
-            sm={6}
-          />
-          <Grid
-            item
-            sm={6}
-            xs={12}
-          >
+          <Grid item sm={6} />
+          <Grid item sm={6} xs={12}>
             <TextField
               fullWidth
               label="Card Number"
@@ -273,15 +201,8 @@ export const CheckoutBilling = (props) => {
               value={billing.cardNumber}
             />
           </Grid>
-          <Grid
-            item
-            sm={6}
-          />
-          <Grid
-            item
-            sm={3}
-            xs={12}
-          >
+          <Grid item sm={6} />
+          <Grid item sm={3} xs={12}>
             <TextField
               fullWidth
               label="Expire Date"
@@ -291,11 +212,7 @@ export const CheckoutBilling = (props) => {
               value={billing.cardExpirationDate}
             />
           </Grid>
-          <Grid
-            item
-            sm={3}
-            xs={12}
-          >
+          <Grid item sm={3} xs={12}>
             <TextField
               fullWidth
               label="Security Code"
@@ -307,10 +224,10 @@ export const CheckoutBilling = (props) => {
         </Grid>
       </Box>
     </div>
-  );
-};
+  )
+}
 
 CheckoutBilling.propTypes = {
   billing: PropTypes.object,
-  onChange: PropTypes.func
-};
+  onChange: PropTypes.func,
+}

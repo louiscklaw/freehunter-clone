@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import { Box, Button, Card, Chip, Typography } from '@mui/material';
+import PropTypes from 'prop-types'
+import { Box, Button, Card, Chip, Typography } from '@mui/material'
 
-export const OverviewBanner = (props) => {
-  const { onDismiss, ...other } = props;
+export const OverviewBanner = props => {
+  const { onDismiss, ...other } = props
 
   return (
     <Card
@@ -13,11 +13,12 @@ export const OverviewBanner = (props) => {
         display: 'flex',
         flexDirection: {
           xs: 'column',
-          md: 'row'
+          md: 'row',
         },
-        p: 4
+        p: 4,
       }}
-      {...other}>
+      {...other}
+    >
       <Box
         sx={{
           mr: 4,
@@ -25,50 +26,33 @@ export const OverviewBanner = (props) => {
           height: 200,
           '& img': {
             height: 200,
-            width: 'auto'
-          }
+            width: 'auto',
+          },
         }}
       >
-        <img
-          alt=""
-          src="/static/banner-illustration.png"
-        />
+        <img alt="" src="/static/banner-illustration.png" />
       </Box>
       <div>
         <div>
-          <Chip
-            color="secondary"
-            label="New"
-          />
+          <Chip color="secondary" label="New" />
         </div>
-        <Typography
-          color="inherit"
-          sx={{ mt: 2 }}
-          variant="h4"
-        >
+        <Typography color="inherit" sx={{ mt: 2 }} variant="h4">
           Welcome to Material Kit Pro v5!
         </Typography>
-        <Typography
-          color="inherit"
-          sx={{ mt: 1 }}
-          variant="subtitle2"
-        >
-          Your dashboard has been improved! Explore new features like Notifications, Search, Jobs Platform and more.
+        <Typography color="inherit" sx={{ mt: 1 }} variant="subtitle2">
+          Your dashboard has been improved! Explore new features like Notifications, Search, Jobs
+          Platform and more.
         </Typography>
         <Box sx={{ mt: 2 }}>
-          <Button
-            color="secondary"
-            onClick={onDismiss}
-            variant="contained"
-          >
+          <Button color="secondary" onClick={onDismiss} variant="contained">
             Dismiss Banner
           </Button>
         </Box>
       </div>
     </Card>
-  );
-};
+  )
+}
 
 OverviewBanner.propTypes = {
-  onDismiss: PropTypes.func
-};
+  onDismiss: PropTypes.func,
+}

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState } from 'react'
 import {
   Box,
   Button,
@@ -14,16 +14,16 @@ import {
   Menu,
   MenuItem,
   Tooltip,
-  Typography
-} from '@mui/material';
-import { blueGrey } from '@mui/material/colors';
-import { Archive as ArchiveIcon } from '../../../icons/archive';
-import { DocumentText as DocumentTextIcon } from '../../../icons/document-text';
-import { DotsHorizontal as DotsHorizontalIcon } from '../../../icons/dots-horizontal';
-import { Download as DownloadIcon } from '../../../icons/download';
-import { PencilAlt as PencilAltIcon } from '../../../icons/pencil-alt';
-import { Trash as TrashIcon } from '../../../icons/trash';
-import { bytesToSize } from '../../../utils/bytes-to-size';
+  Typography,
+} from '@mui/material'
+import { blueGrey } from '@mui/material/colors'
+import { Archive as ArchiveIcon } from '../../../icons/archive'
+import { DocumentText as DocumentTextIcon } from '../../../icons/document-text'
+import { DotsHorizontal as DotsHorizontalIcon } from '../../../icons/dots-horizontal'
+import { Download as DownloadIcon } from '../../../icons/download'
+import { PencilAlt as PencilAltIcon } from '../../../icons/pencil-alt'
+import { Trash as TrashIcon } from '../../../icons/trash'
+import { bytesToSize } from '../../../utils/bytes-to-size'
 
 const files = [
   {
@@ -31,35 +31,35 @@ const files = [
     mimeType: 'image/png',
     name: 'example-project1.jpg',
     size: 1024 * 1024 * 3,
-    url: '/static/mock-images/projects/project_4.png'
+    url: '/static/mock-images/projects/project_4.png',
   },
   {
     id: '5e8dd0784431995a30eb2586',
     mimeType: 'application/zip',
     name: 'docs.zip',
     size: 1024 * 1024 * 25,
-    url: '#'
+    url: '#',
   },
   {
     id: '5e8dd07cbb62749296ecee1c',
     mimeType: 'image/png',
     name: 'example-project2.jpg',
     size: 1024 * 1024 * 2,
-    url: '/static/mock-images/projects/project_1.png'
-  }
-];
+    url: '/static/mock-images/projects/project_1.png',
+  },
+]
 
 export const GridList3 = () => {
-  const moreRef = useRef(null);
-  const [openMenu, setOpenMenu] = useState(false);
+  const moreRef = useRef(null)
+  const [openMenu, setOpenMenu] = useState(false)
 
   const handleMenuOpen = () => {
-    setOpenMenu(true);
-  };
+    setOpenMenu(true)
+  }
 
   const handleMenuClose = () => {
-    setOpenMenu(false);
-  };
+    setOpenMenu(false)
+  }
 
   return (
     <Box
@@ -68,67 +68,44 @@ export const GridList3 = () => {
         display: 'flex',
         justifyContent: 'center',
         minHeight: '100%',
-        p: 3
+        p: 3,
       }}
     >
-      <Grid
-        container
-        spacing={3}
-      >
-        {files.map((file) => (
-          <Grid
-            item
-            key={file.id}
-            md={4}
-            xs={12}
-          >
+      <Grid container spacing={3}>
+        {files.map(file => (
+          <Grid item key={file.id} md={4} xs={12}>
             <Card>
-              {file.mimeType.includes('image/')
-                ? (
-                  <CardMedia
-                    image={file.url}
-                    sx={{ height: 140 }}
-                  />
-                )
-                : (
-                  <Box
-                    sx={{
-                      alignItems: 'center',
-                      backgroundColor: blueGrey['50'],
-                      color: '#000000',
-                      display: 'flex',
-                      height: 140,
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <DocumentTextIcon fontSize="large" />
-                  </Box>
-                )}
+              {file.mimeType.includes('image/') ? (
+                <CardMedia image={file.url} sx={{ height: 140 }} />
+              ) : (
+                <Box
+                  sx={{
+                    alignItems: 'center',
+                    backgroundColor: blueGrey['50'],
+                    color: '#000000',
+                    display: 'flex',
+                    height: 140,
+                    justifyContent: 'center',
+                  }}
+                >
+                  <DocumentTextIcon fontSize="large" />
+                </Box>
+              )}
               <CardContent
                 sx={{
                   display: 'flex',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
                 }}
               >
                 <div>
-                  <Typography variant="subtitle2">
-                    {file.name}
-                  </Typography>
-                  <Typography
-                    color="textSecondary"
-                    variant="caption"
-                  >
+                  <Typography variant="subtitle2">{file.name}</Typography>
+                  <Typography color="textSecondary" variant="caption">
                     {bytesToSize(file.size)}
                   </Typography>
                 </div>
                 <div>
                   <Tooltip title="More options">
-                    <IconButton
-                      edge="end"
-                      onClick={handleMenuOpen}
-                      ref={moreRef}
-                      size="small"
-                    >
+                    <IconButton edge="end" onClick={handleMenuOpen} ref={moreRef} size="small">
                       <DotsHorizontalIcon fontSize="small" />
                     </IconButton>
                   </Tooltip>
@@ -136,10 +113,7 @@ export const GridList3 = () => {
               </CardContent>
               <Divider />
               <CardActions>
-                <Button
-                  fullWidth
-                  startIcon={<DownloadIcon fontSize="small" />}
-                >
+                <Button fullWidth startIcon={<DownloadIcon fontSize="small" />}>
                   Download
                 </Button>
               </CardActions>
@@ -147,7 +121,7 @@ export const GridList3 = () => {
                 anchorEl={moreRef.current}
                 anchorOrigin={{
                   horizontal: 'left',
-                  vertical: 'top'
+                  vertical: 'top',
                 }}
                 elevation={1}
                 onClose={handleMenuClose}
@@ -155,12 +129,12 @@ export const GridList3 = () => {
                 PaperProps={{
                   sx: {
                     maxWidth: '100%',
-                    width: 250
-                  }
+                    width: 250,
+                  },
                 }}
                 transformOrigin={{
                   horizontal: 'left',
-                  vertical: 'top'
+                  vertical: 'top',
                 }}
               >
                 <MenuItem divider>
@@ -187,5 +161,5 @@ export const GridList3 = () => {
         ))}
       </Grid>
     </Box>
-  );
-};
+  )
+}

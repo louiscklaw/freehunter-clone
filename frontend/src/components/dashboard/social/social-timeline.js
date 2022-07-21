@@ -1,44 +1,37 @@
-import { useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Box, Grid } from '@mui/material';
-import { socialApi } from '../../../__fake-api__/social-api';
-import { useMounted } from '../../../hooks/use-mounted';
-import { SocialPostAdd } from './social-post-add';
-import { SocialPostCard } from './social-post-card';
-import { SocialAbout } from './social-about';
+import { useCallback, useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { Box, Grid } from '@mui/material'
+import { socialApi } from '../../../__fake-api__/social-api'
+import { useMounted } from '../../../hooks/use-mounted'
+import { SocialPostAdd } from './social-post-add'
+import { SocialPostCard } from './social-post-card'
+import { SocialAbout } from './social-about'
 
-export const SocialTimeline = (props) => {
-  const isMounted = useMounted();
-  const { profile, ...other } = props;
-  const [posts, setPosts] = useState([]);
+export const SocialTimeline = props => {
+  const isMounted = useMounted()
+  const { profile, ...other } = props
+  const [posts, setPosts] = useState([])
 
   const getPosts = useCallback(async () => {
     try {
-      const data = await socialApi.getPosts();
+      const data = await socialApi.getPosts()
 
       if (isMounted()) {
-        setPosts(data);
+        setPosts(data)
       }
     } catch (err) {
-      console.error(err);
+      console.error(err)
     }
-  }, [isMounted]);
+  }, [isMounted])
 
   useEffect(() => {
-    getPosts();
-  }, [getPosts]);
+    getPosts()
+  }, [getPosts])
 
   return (
     <div {...other}>
-      <Grid
-        container
-        spacing={4}
-      >
-        <Grid
-          item
-          lg={4}
-          xs={12}
-        >
+      <Grid container spacing={4}>
+        <Grid item lg={4} xs={12}>
           <SocialAbout
             currentCity={profile.currentCity}
             currentJobCompany={profile.currentJobCompany}
@@ -51,17 +44,10 @@ export const SocialTimeline = (props) => {
             quote={profile.quote}
           />
         </Grid>
-        <Grid
-          item
-          lg={8}
-          xs={12}
-        >
+        <Grid item lg={8} xs={12}>
           <SocialPostAdd />
-          {posts.map((post) => (
-            <Box
-              key={post.id}
-              sx={{ mt: 3 }}
-            >
+          {posts.map(post => (
+            <Box key={post.id} sx={{ mt: 3 }}>
               <SocialPostCard
                 authorAvatar={post.author.avatar}
                 authorName={post.author.name}
@@ -77,9 +63,9 @@ export const SocialTimeline = (props) => {
         </Grid>
       </Grid>
     </div>
-  );
-};
+  )
+}
 
 SocialTimeline.propTypes = {
-  profile: PropTypes.object.isRequired
-};
+  profile: PropTypes.object.isRequired,
+}

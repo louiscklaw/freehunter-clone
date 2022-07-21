@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import numeral from 'numeral';
+import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import {
   Box,
   Card,
@@ -11,12 +11,12 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
-} from '@mui/material';
-import { Scrollbar } from '../../scrollbar';
+  Typography,
+} from '@mui/material'
+import { Scrollbar } from '../../scrollbar'
 
-export const OrderItems = (props) => {
-  const { orderItems, ...other } = props;
+export const OrderItems = props => {
+  const { orderItems, ...other } = props
 
   return (
     <Card {...other}>
@@ -27,35 +27,21 @@ export const OrderItems = (props) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>
-                  Description
-                </TableCell>
-                <TableCell>
-                  Billing Cycle
-                </TableCell>
-                <TableCell>
-                  Amount
-                </TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>Billing Cycle</TableCell>
+                <TableCell>Amount</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {orderItems.map((item) => (
+              {orderItems.map(item => (
                 <TableRow key={item.id}>
                   <TableCell>
                     <Typography variant="subtitle2">
-                      {item.name}
-                      {' '}
-                      x
-                      {' '}
-                      {item.quantity}
+                      {item.name} x {item.quantity}
                     </Typography>
                   </TableCell>
-                  <TableCell>
-                    {item.billingCycle}
-                  </TableCell>
-                  <TableCell>
-                    {numeral(item.unitAmount).format(`${item.currency}0,0.00`)}
-                  </TableCell>
+                  <TableCell>{item.billingCycle}</TableCell>
+                  <TableCell>{numeral(item.unitAmount).format(`${item.currency}0,0.00`)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -65,16 +51,16 @@ export const OrderItems = (props) => {
       <TablePagination
         component="div"
         count={orderItems.length}
-        onPageChange={() => { }}
-        onRowsPerPageChange={() => { }}
+        onPageChange={() => {}}
+        onRowsPerPageChange={() => {}}
         page={0}
         rowsPerPage={5}
         rowsPerPageOptions={[5, 10, 25]}
       />
     </Card>
-  );
-};
+  )
+}
 
 OrderItems.propTypes = {
-  orderItems: PropTypes.array.isRequired
-};
+  orderItems: PropTypes.array.isRequired,
+}

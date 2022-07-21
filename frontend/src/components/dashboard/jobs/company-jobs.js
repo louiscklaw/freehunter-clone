@@ -1,15 +1,13 @@
-import { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { formatDistanceStrict } from 'date-fns';
-import { Box, Button, Card, Divider, Typography } from '@mui/material';
+import { Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { formatDistanceStrict } from 'date-fns'
+import { Box, Button, Card, Divider, Typography } from '@mui/material'
 
-export const CompanyJobs = (props) => {
-  const { jobs, ...other } = props;
+export const CompanyJobs = props => {
+  const { jobs, ...other } = props
 
   return (
-    <Card
-      variant="outlined"
-      {...other}>
+    <Card variant="outlined" {...other}>
       {jobs.map((job, index) => (
         <Fragment key={job.id}>
           <Box
@@ -19,62 +17,38 @@ export const CompanyJobs = (props) => {
               justifyContent: 'space-between',
               flexWrap: 'wrap',
               px: 2,
-              py: 1.5
+              py: 1.5,
             }}
           >
             <div>
-              <Typography variant="subtitle1">
-                {job.title}
-              </Typography>
-              <Typography
-                color="textSecondary"
-                variant="caption"
-              >
-                {job.isRemote
-                  ? 'Remote possible'
-                  : (`${job.country}, ${job.city}`)}
-                {' '}
-                <Typography
-                  color="inherit"
-                  noWrap
-                  variant="caption"
-                >
-                  •
-                  {' '}
-                  {job.currency}
-                  {job.salaryMin}
-                  {' '}
-                  -
-                  {' '}
-                  {job.currency}
+              <Typography variant="subtitle1">{job.title}</Typography>
+              <Typography color="textSecondary" variant="caption">
+                {job.isRemote ? 'Remote possible' : `${job.country}, ${job.city}`}{' '}
+                <Typography color="inherit" noWrap variant="caption">
+                  • {job.currency}
+                  {job.salaryMin} - {job.currency}
                   {job.salaryMax}
                 </Typography>
               </Typography>
             </div>
             <div>
-              <Typography
-                color="textSecondary"
-                sx={{ mr: 2 }}
-                variant="caption"
-              >
+              <Typography color="textSecondary" sx={{ mr: 2 }} variant="caption">
                 {formatDistanceStrict(job.publishedAt, new Date(), { addSuffix: true })}
               </Typography>
-              <Button>
-                Apply
-              </Button>
+              <Button>Apply</Button>
             </div>
           </Box>
-          {(index !== jobs.length - 1) && <Divider />}
+          {index !== jobs.length - 1 && <Divider />}
         </Fragment>
       ))}
     </Card>
-  );
-};
+  )
+}
 
 CompanyJobs.defaultProps = {
-  jobs: []
-};
+  jobs: [],
+}
 
 CompanyJobs.propTypes = {
-  jobs: PropTypes.array
-};
+  jobs: PropTypes.array,
+}
