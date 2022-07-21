@@ -2,18 +2,10 @@ services:
   proxy:
     build: reverse-proxy
     ports:
-      - 80:80
+      - 9001:80
     depends_on:
       - frontend
     restart: always
-
-  frontend:
-    build: frontend
-    # ports:
-    # - 80
-    # volumes:
-    # - frontend:/src
-    command: yarn start
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.freehunter-http.rule=Host(`freehunter.iamon99.com`)'
@@ -23,7 +15,15 @@ services:
       - 'traefik.http.routers.freehunter.rule=Host(`freehunter.iamon99.com`)'
       - 'traefik.http.routers.freehunter.entrypoints=websecure'
       - 'traefik.http.routers.freehunter.tls.certresolver=myresolver'
-      - 'traefik.http.services.freehunter.loadbalancer.server.port=8000'
+      - 'traefik.http.services.freehunter.loadbalancer.server.port=9001'
+
+  frontend:
+    build: frontend
+    # ports:
+    # - 80
+    # volumes:
+    # - frontend:/src
+    command: yarn start
 
 volumes:
   data:
