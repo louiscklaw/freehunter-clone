@@ -25,5 +25,13 @@ services:
     # - frontend:/src
     command: yarn start
 
+  admin:
+    build: admin
+    # ports:
+    # - 80
+    # volumes:
+    # - admin:/src
+    command: yarn start
+
 volumes:
   data:
