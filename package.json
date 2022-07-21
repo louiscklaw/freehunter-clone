@@ -23,5 +23,13 @@
   "homepage": "https://github.com/louiscklaw/freehunter-clone#readme",
   "dependencies": {
     "prettier": "^2.7.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn format"
+    }
+  },
+  "devDependencies": {
+    "husky": "^8.0.1"
   }
 }
