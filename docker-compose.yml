@@ -5,6 +5,7 @@ services:
       - 9002:80
     depends_on:
       - frontend
+      - admin
     restart: always
     labels:
       - 'traefik.enable=true'
@@ -19,6 +20,7 @@ services:
 
   frontend:
     build: frontend
+    restart: always
     # ports:
     # - 80
     # volumes:
@@ -27,6 +29,7 @@ services:
 
   admin:
     build: admin
+    restart: always
     # ports:
     # - 80
     # volumes:
