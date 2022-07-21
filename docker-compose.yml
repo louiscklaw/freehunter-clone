@@ -16,14 +16,14 @@ services:
     command: yarn start
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.freelancer-http.rule=Host(`freelancer.iamon99.com`)'
-      - 'traefik.http.routers.freelancer-http.entrypoints=web'
-      - 'traefik.http.routers.freelancer-http.middlewares=freelancer-https'
-      - 'traefik.http.middlewares.freelancer-https.redirectscheme.scheme=https'
-      - 'traefik.http.routers.freelancer.rule=Host(`freelancer.iamon99.com`)'
-      - 'traefik.http.routers.freelancer.entrypoints=websecure'
-      - 'traefik.http.routers.freelancer.tls.certresolver=myresolver'
-      - 'traefik.http.services.freelancer.loadbalancer.server.port=8000'
+      - 'traefik.http.routers.freehunter-http.rule=Host(`freehunter.iamon99.com`)'
+      - 'traefik.http.routers.freehunter-http.entrypoints=web'
+      - 'traefik.http.routers.freehunter-http.middlewares=freehunter-https'
+      - 'traefik.http.middlewares.freehunter-https.redirectscheme.scheme=https'
+      - 'traefik.http.routers.freehunter.rule=Host(`freehunter.iamon99.com`)'
+      - 'traefik.http.routers.freehunter.entrypoints=websecure'
+      - 'traefik.http.routers.freehunter.tls.certresolver=myresolver'
+      - 'traefik.http.services.freehunter.loadbalancer.server.port=8000'
 
 volumes:
   data:
